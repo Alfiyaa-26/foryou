@@ -16,28 +16,11 @@ body {
     overflow-y: auto;
 }
 
-/* Glow */
-body::before {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 40%),
-                radial-gradient(circle at 70% 60%, rgba(200,200,255,0.2), transparent 40%);
-    animation: glowMove 20s infinite alternate;
-}
-
-@keyframes glowMove {
-    from { transform: translate(-10%, -10%); }
-    to { transform: translate(10%, 10%); }
-}
-
 /* Stars */
 .star {
     position: absolute;
     animation: moveStar linear infinite,
-               twinkle 1.5s infinite alternate,
-               sparkle 2s ease-in-out infinite;
+               twinkle 1.5s infinite alternate;
 }
 
 @keyframes moveStar {
@@ -50,39 +33,34 @@ body::before {
     to { opacity: 1; }
 }
 
-@keyframes sparkle {
-    0% { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
-    50% { text-shadow: 0 0 15px rgba(255,255,255,1); }
-    100% { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
-}
-
-/* Box */
+/* BIG BOX */
 .box {
-    position: relative;
-    width: 340px;
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
+    width: 90%; /* responsive */
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 18px;
     background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    max-height: 85vh;
-    overflow-y: auto;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Question text */
+/* Question */
 .box p {
-    color: #222;
+    font-size: 20px;
     font-weight: 600;
-    font-size: 18px;
+    margin-bottom: 20px;
+    color: #222;
 }
 
-/* Buttons */
+/* Buttons in QUEUE */
 button {
-    margin: 8px;
-    padding: 12px 18px;
-    font-size: 15px;
-    border: none;
+    display: block; /* IMPORTANT */
+    width: 100%;
+    margin: 10px 0;
+    padding: 14px;
+    font-size: 16px;
     border-radius: 10px;
+    border: none;
     background: #6c63ff;
     color: white;
     cursor: pointer;
@@ -96,11 +74,15 @@ button:hover {
 .section { display: none; }
 .active { display: block; }
 
-/* Message */
-.message {
-    color: #222;
-    line-height: 1.8;
+/* Message box */
+.message-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
     font-size: 16px;
+    line-height: 1.8;
+    color: #111;
 }
 </style>
 
@@ -109,7 +91,7 @@ button:hover {
 
 <script>
 /* Stars */
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < 70; i++) {
     let star = document.createElement("div");
     star.className = "star";
     star.innerHTML = "⭐";
@@ -126,7 +108,7 @@ function next(current, next, correct) {
         document.getElementById(current).classList.remove("active");
         document.getElementById(next).classList.add("active");
     } else {
-        alert("Wrong answer!! try again properly!");
+        alert("Wrong answer!!! try again!");
     }
 }
 </script>
@@ -158,18 +140,8 @@ function next(current, next, correct) {
 </div>
 
 <!-- Message -->
-<div id="msg" class="section message">
-    <div style="
-        background: #ffffff;
-        padding: 22px;
-        border-radius: 6px;
-        color: #111;
-        font-size: 16px;
-        line-height: 1.8;
-        font-family: Arial, Helvetica, sans-serif;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-        text-align: left;
-    ">
+<div id="msg" class="section">
+    <div class="message-box">
         <strong style="font-size:20px;">Get well soon… get well soonnnnn</strong><br><br>
 
         Haan, but I really hate tht u r not feeling well rn  
@@ -179,7 +151,7 @@ function next(current, next, correct) {
 
         Woh energy… woh mood… jaldi wapas le aao  
         Rn everything feels a little off, like something is missing  
-        nd honestly, it’s u.<br><br>
+        And honestly, it’s u.<br><br>
 
         Achhe se rest karo, properly okiee?<br>
         Time pe so jao, achha khao, pani piyo… stay hydrated.<br><br>
