@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh; /* FIXED */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+
+    background: linear-gradient(135deg, #2b2f77, #6a75d6, #a3b3ff);
+    overflow-y: auto; /* FIXED */
+}
+
+/* Glow */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(200,200,255,0.2), transparent 40%);
+    animation: glowMove 20s infinite alternate;
+}
+
+@keyframes glowMove {
+    from { transform: translate(-10%, -10%); }
+    to { transform: translate(10%, 10%); }
+}
+
+/* Stars */
+.star {
+    position: absolute;
+    animation: moveStar linear infinite,
+               twinkle 1.5s infinite alternate,
+               sparkle 2s ease-in-out infinite;
+}
+
+@keyframes moveStar {
+    from { transform: translateY(0); }
+    to { transform: translateY(-120vh); }
+}
+
+@keyframes twinkle {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+@keyframes sparkle {
+    0% { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
+    50% { text-shadow: 0 0 15px rgba(255,255,255,1); }
+    100% { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
+}
+
+/* Box */
+.box {
+    position: relative;
+    width: 320px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+
+    max-height: 80vh; /* FIXED */
+    overflow-y: auto; /* FIXED */
+}
+
+/* Text */
+.box p {
+    color: #222;
+    font-weight: 500;
+}
+
+.message {
+    color: #222;
+    line-height: 1.7;
+}
+
+/* Buttons */
+button {
+    margin: 6px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #6c63ff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4a47d1;
+}
+
+/* Sections */
+.section { display: none; }
+.active { display: block; }
+
+</style>
+
+</head>
+<body>
+
+<script>
+/* Stars */
+for (let i = 0; i < 80; i++) {
+    let star = document.createElement("div");
+    star.className = "star";
+    star.innerHTML = "⭐";
+
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.fontSize = (10 + Math.random() * 18) + "px";
+    star.style.animationDuration = (4 + Math.random() * 6) + "s";
+
+    document.body.appendChild(star);
+}
+
+/* Navigation */
+function next(current, next, correct) {
+    if (correct) {
+        document.getElementById(current).classList.remove("active");
+        document.getElementById(next).classList.add("active");
+    } else {
+        alert("Wrong answer 😤 try again properly!");
+    }
+}
+</script>
+
+<div class="box">
+
+<!-- Q1 -->
+<div id="q1" class="section active">
+    <p>Your favorite color?</p>
+    <button onclick="next('q1','q2',false)">Blue</button>
+    <button onclick="next('q1','q2',true)">Green</button>
+    <button onclick="next('q1','q2',false)">Black</button>
+</div>
+
+<!-- Q2 -->
+<div id="q2" class="section">
+    <p>Favorite cake flavor?</p>
+    <button onclick="next('q2','q3',false)">Chocolate Truffle</button>
+    <button onclick="next('q2','q3',true)">Black Forest</button>
+    <button onclick="next('q2','q3',false)">Red Velvet</button>
+</div>
+
+<!-- Q3 -->
+<div id="q3" class="section">
+    <p>Pick a perfume</p>
+    <button onclick="next('q3','msg',false)">Kenneth Cole Black Bold</button>
+    <button onclick="next('q3','msg',true)">Black Kenneth Cole</button>
+    <button onclick="next('q3','msg',false)">Calvin Klein Euphoria</button>
+</div>
+
+<!-- Message -->
+<div id="msg" class="section message">
+    <div style="
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 4px;
+        color: #111;
+        font-size: 15px;
+        line-height: 1.7;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        text-align: left;
+    ">
+        <strong style="font-size:16px;">Get well soon… get well soonnnnn</strong><br><br>
+
+        Haan, but I really hate tht u r not feeling well rn  
+        I wish I could just fix it instantly for u.<br><br>
+
+        I’m praying for u… Inshallah jaldi se theek ho jao<br><br>
+
+        Woh energy… woh mood… jaldi wapas le aao  
+        Rn everything feels a little off, like something is missing  
+        And honestly, it’s u.<br><br>
+
+        Achhe se rest karo, properly okiee?<br>
+        Time pe so jao, achha khao, pani piyo… stay hydrated.<br><br>
+
+        Jaldi se recover ho jao…  
+        because I still have to annoy you a lot  
+        Like seriously, bohot zyada<br><br>
+
+        So yeah… jaldi theek ho jao...hehehe
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
